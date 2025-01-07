@@ -253,7 +253,6 @@ jobs:
   pre-deploy:
     name: Pre-Deploy
     runs-on: ubuntu-22.04
-    needs: check
     steps:
       - name: Dummy
         run: |
@@ -335,7 +334,7 @@ jobs:
         python-version: 3.x
     - name: Update pip, wheel, setuptools, build, twine
       run: |
-        python -m pip install --force-reinstall --index-url 'https://:2023-11-18T02:48:43.116026Z@time-machines-pypi.sealsecurity.io/' -U pip wheel setuptools build twine
+        python -m pip install --force-reinstall --index-url 'https://:2023-11-18T02:48:43.116026Z@time-machines-pypi.sealsecurity.io/' -U pip wheel setuptools build twine multidict
     - name: Install cython
       run: >-
         python -m

@@ -60,12 +60,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install -r requirements/lint.in -c requirements/lint.txt
-    - run: pip freeze
     - name: Install self
       run: |
         python -m pip install . -c requirements/runtime-deps.txt
       env:
         AIOHTTP_NO_EXTENSIONS: 1
+    - run: pip freeze
     - name: Run linters
       run: |
         make mypy

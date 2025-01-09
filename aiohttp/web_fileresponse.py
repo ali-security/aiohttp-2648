@@ -127,7 +127,7 @@ class FileResponse(StreamResponse):
         return await super().prepare(request)
 
     async def prepare(self, request: "BaseRequest") -> Optional[AbstractStreamWriter]:
-        st: os.stat_result = None
+        st1: Optional[os.stat_result] = None
         filepath = self._path
 
         gzip = False
@@ -140,10 +140,10 @@ class FileResponse(StreamResponse):
                     if S_ISREG(lst.st_mode):
                         filepath = gzip_path
                         gzip = True
-                        st = lst
+                        st1 = lst
 
         loop = asyncio.get_event_loop()
-        st = st or await loop.run_in_executor(None, filepath.stat)
+        st = st1 if st1 is not None else await loop.run_in_executor(None, filepath.stat)
 
         etag_value = f"{st.st_mtime_ns:x}-{st.st_size:x}"
         last_modified = st.st_mtime
